@@ -940,6 +940,7 @@ def find_symbol_binding_fx_nodes(
 @dataclass
 class BackendSpecialization:
     symbol: sympy.Symbol
+    source: TensorPropertySource,
     hint: int
     specialization: Callable
 
@@ -4061,6 +4062,7 @@ class ShapeEnv:
             for specialization in symbolic_context.backend_specializations:
                 self.backend_specializations.append(BackendSpecialization(
                     sym,
+                    TensorPropertySource(source, TensorProperty.SIZE, i),
                     *specialization,
                 ))
             if (
